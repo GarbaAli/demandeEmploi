@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Competence>
+
+@{
+    ViewBag.Title = "Liste de competences";
+    int count = Model.Count();
+}
+
+
+@if (count == 0)
+{
+    <div class="alert alert-dark d-flex justify-content-between">
+        <strong>Vous n'avez aucune Competence dans votre base de donnee!</strong>
+         <a asp-controller="Competence" asp-action="Create" class="btn-sm btn-dark"><i class="icofont icofont-user-alt-3"></i>Nouvelle competence</a>
+    </div>
+}
+else
+{
+    <!-- Basic table card start -->
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-block table-border-style">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Libelle</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@item.comptetenceId</th>
+                                <td><label class="label label-primary">@item.libelle</label></td>
+                                <td>
+                                    <div class="btn-group " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions">
+                                        <a asp-controller="Competence" asp-route-id="@item.comptetenceId" asp-action="Detail" class="btn btn-primary btn-sm waves-effect waves-light"><i class="fa fa-eye"></i></a>
+                                        <a asp-controller="Competence" asp-route-id="@item.comptetenceId" asp-action="Delete" class="btn btn-danger btn-sm waves-effect waves-light"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Basic table card end -->
+}

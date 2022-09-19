@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DocumentViewModel>
+﻿@model IList<Document>
 
 @{
     ViewBag.Title = "Liste de Documents";
@@ -38,7 +38,7 @@ else
                         <tr>
                             <th scope="row">@item.fichier</th>
                             <td><label class="label label-primary">@item.type</label></td>
-                            <td>@item.candidat.Nom <strong>@item.candidat.Prenom</strong></td>
+                            <td>@item.candidatLink.Nom <strong>@item.candidatLink.Prenom</strong></td>
                             <td>
                                 <div class="btn-group " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions">
                                     <a asp-controller="Document" asp-route-id="@item.DocumentId" asp-action="Delete" class="btn btn-danger btn-sm waves-effect waves-light"><i class="fa fa-trash"></i></a>

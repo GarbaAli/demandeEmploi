@@ -30,7 +30,7 @@ namespace demandeEmploi.Repositories
 
         public Document Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Documents.Find(id);
         }
 
         public IEnumerable<Document> List()

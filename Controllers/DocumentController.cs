@@ -3,6 +3,7 @@ using demandeEmploi.Repositories;
 using demandeEmploi.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,17 +17,18 @@ namespace demandeEmploi.Controllers
         private readonly IRepository<Document> _bd;
         private readonly IRepository<Candidat> _bdCand;
         private readonly IWebHostEnvironment _hostingEnironment;
-        public DocumentController(IRepository<Document> bd, IRepository<Candidat> bdCand, IWebHostEnvironment hostingEnironment)
+        private readonly AppDbContext _context;
+        public DocumentController(AppDbContext context, IRepository<Document> bd, IRepository<Candidat> bdCand, IWebHostEnvironment hostingEnironment)
         {
             _bd = bd;
             _bdCand = bdCand;
             _hostingEnironment = hostingEnironment;
+            _context = context;
         }
         public IActionResult Index()
         {
-            var doc = new Document();
-            doc = (Document)_bd.List();
-            return View(doc);
+
+            return View(_context.Documents.Include(d=>d.candidatLink).ToList());
         }
         [HttpGet]
         public IActionResult Create(int id)

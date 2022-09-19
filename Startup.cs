@@ -31,6 +31,7 @@ namespace demandeEmploi
                  options => options.UseSqlServer(Configuration.GetConnectionString("CandidaturesConnection")));
             services.AddScoped<IRepository<Candidat>, CandidatRepository>();
             services.AddScoped<IRepository<Document>, DocumentRepository>();
+            services.AddScoped<IRepository<Competence>, CompetenceRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
