@@ -29,12 +29,16 @@ namespace demandeEmploi.Repositories
 
         public Candidat Get(int id)
         {
-            return _context.Candidats.Find(id);
+            return _context.Candidats.Where(c => c.candidatId == id)
+                .Include(c => c.competences)
+                .Include(c => c.documents)
+                .SingleOrDefault();
         }
 
         public IEnumerable<Candidat> List()
         {
-            return _context.Candidats.Include(c => c.competences).ToList();
+            return _context.Candidats
+                .ToList();
         }
 
         public IEnumerable<Candidat> ListActif()

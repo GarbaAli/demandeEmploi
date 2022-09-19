@@ -23,7 +23,9 @@ namespace demandeEmploi.Repositories
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var doc = _context.Documents.Find(id);
+            _context.Documents.Remove(doc);
+            _context.SaveChanges();
         }
 
         public Document Get(int id)

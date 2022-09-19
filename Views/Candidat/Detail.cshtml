@@ -7,74 +7,120 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-sm-2">
+        </div>
+
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
                     <i style="color:darkblue; width:max-content" class="ti-user"></i>
+                    <ul class="nav nav-tabs md-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#home3" role="tab">Informations du Candidat</a>
+                            <div class="slide"></div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#profile3" role="tab">Competences</a>
+                            <div class="slide"></div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#messages3" role="tab">Documents</a>
+                            <div class="slide"></div>
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h5 class="card-title">@Model.Nom<strong>@Model.Prenom </strong></h5>
-                            <p class="card-text">@Model.profession</p>
+                    <!-- Tab panes -->
+                    <div class="tab-content card-block">
+                        <div class="tab-pane active" id="home3" role="tabpanel">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title">@Model.Nom<strong>@Model.Prenom </strong></h5>
+                                    <p class="card-text">@Model.profession</p>
+                                </div>
+                                <div>
+                                    <label class="label label-inverse">Exp: @Model.Experience</label>
+                                    <label class="label label-primary">Age: @Model.Age</label>
+                                </div>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Service : <strong>@Model.service</strong></li>
+                                <li class="list-group-item">D.Naissance : <strong>@Model.DteNaissance.ToString("dd MMMM yyyy")</strong></li>
+                                <li class="list-group-item">
+                                    Phone : <strong> @Model.Phone </strong>
+                                </li>
+                            </ul>
+                            @if (Model.statut)
+                            {
+                                <label class="label label-success">Actif</label>
+                            }
+                            else
+                            {
+                                <label class="label label-default">Inactif</label>
+                            }
+                            <label class="label label-inverse"> @Model.statutFamilial</label>
+                            <label class="label label-inverse">@Model.sexe</label>
+                            <hr />
+                            <a asp-controller="Candidat" asp-action="Update" asp-route-id="@Model.candidatId" class="btn-sm btn-info">Update</a>
                         </div>
-                        <div>
-                            <label class="label label-inverse">Exp: @Model.Experience</label>
-                            <label class="label label-primary">Age: @Model.Age</label>
-                        </div>
+
+                        @*Competences*@
+                    <div class="tab-pane" id="profile3" role="tabpanel">
+                        @if (Model.competences.Count() != 0)
+                        {
+                            @foreach (var compt in Model.competences)
+                            {
+                                var i = 1;
+                                <label class="label label-primary">@i</label>
+                                <span>@compt.libelle</span>
+                                <hr />
+                                i++;
+                            }
+                        }
+                        else
+                        {
+                            <div class="alert alert-dark">
+                                <strong>Ce Candidat ne possede aucune competence!</strong>
+                            </div>
+                        }
+                        <hr />
+                        <a asp-controller="Competences" asp-action="" asp-route-id="@Model.candidatId" class="btn-sm btn-info">Ajouter des competences au candidat</a>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Service : <strong>@Model.service</strong></li>
-                        <li class="list-group-item">D.Naissance : <strong>@Model.DteNaissance.ToString("dd MMMM yyyy")</strong></li>
-                        <li class="list-group-item">
-                            Phone : <strong> @Model.Phone </strong>
-                        </li>
-                    </ul>
-                    @if (Model.statut)
-                    {
-                        <label class="label label-success">Actif</label>
-                    }
-                    else
-                    {
-                        <label class="label label-default">Inactif</label>
-                    }
-                    <label class="label label-inverse"> @Model.statutFamilial</label>
-                    <label class="label label-inverse">@Model.sexe</label>
+
+                        @*Documents*@
+                    <div class="tab-pane" id="messages3" role="tabpanel">
+                        @if (Model.documents != null)
+                        {
+                            @foreach (var item in Model.documents)
+                            {
+                                <div class="d-flex justify-content-between">
+                                    <span>@item.type</span>
+                                    <a href="~/Documents/@item.fichier" class="btn-sm btn-dark">Voir le document</a>
+                                </div><hr />
+                            }
+
+                        }
+                        else
+                        {
+                            <div class="alert alert-dark">
+                                <strong>Ce Candidat ne dispose d'aucun document!</strong>
+                            </div>
+                        }
+                        <hr />
+                        <a asp-controller="Document" asp-action="Create" asp-route-id="@Model.candidatId" class="btn-sm btn-dark">Charger les documents du candidat</a>
+                    </div>
+                    </div>
+
                 </div>
 
                 <div class="card-footer">
-                    <a asp-controller="Candidat" asp-action="Update" asp-route-id="@Model.candidatId" class="btn-sm btn-info">Update</a>
                     <a asp-controller="Candidat" asp-action="Index" class="btn-sm btn-danger">Retour a la Liste</a>
-                    <a asp-controller="Document" asp-action="Create" asp-route-id="@Model.candidatId" class="btn-sm btn-dark">Charger les documents du candidat</a>
+                  
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-header">
-                    <span style="color:darkblue; width:max-content" class="fa-500px fa-address-card-o"></span>
-                </div>
-                <div class="card-body">
-                    @if (Model.documents != null)
-                    {
-                        @foreach (var item in Model.documents)
-                        {
-                            <div class="d-flex justify-content-between">
-                                <span>@item.type</span>
-                                <a class="btn-sm btn-dark">Afficher</a>
-                            </div><hr />
-                        }
-
-                    }
-                    else
-                    {
-                        <div class="alert alert-dark">
-                            <strong>Ce Candidat ne dispose d'aucun document!</strong>
-                        </div>
-                    }
-                </div>
-            </div>
+        <div class="col-sm-2">
         </div>
     </div>
 </div>

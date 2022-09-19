@@ -14,28 +14,34 @@ namespace demandeEmploi.Controllers
     public class DocumentController : Controller
     {
         private readonly IRepository<Document> _bd;
+        private readonly IRepository<Candidat> _bdCand;
         private readonly IWebHostEnvironment _hostingEnironment;
-        public DocumentController(IRepository<Document> bd, IWebHostEnvironment hostingEnironment)
+        public DocumentController(IRepository<Document> bd, IRepository<Candidat> bdCand, IWebHostEnvironment hostingEnironment)
         {
             _bd = bd;
+            _bdCand = bdCand;
             _hostingEnironment = hostingEnironment;
         }
         public IActionResult Index()
         {
-            return View();
+            var doc = new Document();
+            doc = (Document)_bd.List();
+            return View(doc);
         }
-
+        [HttpGet]
         public IActionResult Create(int id)
         {
             ViewBag.candidat = id;
             return View();
         }
 
+        [HttpPost]
         public IActionResult Create(DocumentCreateViewModel model)
         {
 
             if (ModelState.IsValid)
             {
+                Candidat cand = _bdCand.Get(model.candidat);
                 string uniqueFileName = null;
                 if (model.fichier != null)
                 {
@@ -49,11 +55,38 @@ namespace demandeEmploi.Controllers
                 {
                     type = model.type,
                     fichier = uniqueFileName,
+                    candidatLink = cand
                 };
                 _bd.Add(doc);
                 return RedirectToAction("Create", new { id = model.candidat });
             }
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var model = _bd.Get(id);
+            if (model != null)
+            {
+                return View(model);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Document model)
+        {
+            if (model.DocumentId != 0)
+            {
+                var doc = _bd.Get(model.DocumentId);
+                if (doc != null)
+                {
+                    _bd.Delete(model.DocumentId);
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View(model);
         }
     }
 }

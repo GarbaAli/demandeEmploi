@@ -19,8 +19,8 @@ else
     <!-- Basic table card start -->
     <div class="card">
         <div class="card-header">
-            <h5>Basic Table</h5>
-            <span>use class <code>table</code> inside table element</span>
+            @*<h5>Basic Table</h5>
+            <span>use class <code>table</code> inside table element</span>*@
             <div class="card-header-right">
                 <a asp-controller="Candidat" asp-action="Create" class="btn-sm btn-dark"><i class="icofont icofont-user-alt-3"></i>Nouveau candidat</a>
             </div>
@@ -58,16 +58,8 @@ else
                             }
 
                         <td>
-                            @*<div class="dropdown-inverse dropdown open">
-            <button class="btn-sm btn-inverse dropdown-toggle waves-effect waves-light " type="button" id="dropdown-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions</button>
-            <div class="dropdown-menu" aria-labelledby="dropdown-7" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                <a class="dropdown-item waves-light waves-effect" asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Detail">Detail</a>
-                <a class="dropdown-item waves-light waves-effect"asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Update">Modifier</a>
-                <a class="dropdown-item waves-light waves-effect" asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Delete">Delete</a>
-            </div>
-        </div>*@
                             <div class="btn-group " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions">
-                                <a asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Detail" class="btn btn-default btn-sm waves-effect waves-light"><i class="fa fa-eye"></i></a>
+                                <a asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Detail" class="btn btn-primary btn-sm waves-effect waves-light"><i class="fa fa-eye"></i></a>
                                 <a asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Edit" class="btn btn-dark btn-sm waves-effect waves-light">Modifier</a>
                                 <a asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Delete" class="btn btn-danger btn-sm waves-effect waves-light"><i class="fa fa-trash"></i></a>
                             </div>

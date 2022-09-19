@@ -1,0 +1,26 @@
+﻿@model Document
+@{
+    ViewBag.Title = "Supprimer Document";
+}
+
+<div class="card">
+    <div class="card-header">
+        Supprimer  <strong class="card-title"><label class="label label-inverse">@Model.fichier</label></strong>
+    </div>
+    <form method="post">
+        <div class="card-body">
+            <div class="alert alert-warning">
+                Vous etes sur le point de supprimer de facon definitive Ce document; etes vous sure  de vouloir continuer?
+            </div>
+            <input asp-for="DocumentId" hidden />
+            <div class="card-footer">
+                <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="fa fa-check-circle"></i> Confirmer la Suppression
+                </button>
+                <a asp-action="Index" asp-controller="Document" class="btn btn-dark btn-sm">
+                    <i class="fa fa-reply"></i> Annuler
+                </a>
+            </div>
+        </div>
+    </form>
+</div>

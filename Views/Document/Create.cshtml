@@ -1,6 +1,6 @@
 ﻿@model DocumentCreateViewModel
 
-@{ 
+@{
     ViewBag.title = "Ajouter un document";
 }
 
@@ -14,7 +14,7 @@
             </div>
             <div class="card-block">
                 <form enctype="multipart/form-data" asp-action="Create" asp-controller="Document" method="post">
-                  
+
                     <div class="form-row">
 
                         <div class="col-md-12 mb-3">
@@ -28,7 +28,7 @@
                             <span class="text-sm-left text-danger" asp-validation-for="type"></span>
                         </div>
                         <div class="col-md-12 mb-3 custom-file">
-                            <input asp-for="fichier" type="file" accept="images/*, .pdf" class="custom-file-input" id="avatarinput">
+                            <input asp-for="fichier" type="file" accept="images/*, .pdf" class="custom-file-input" id="fileinput">
                             <label class="custom-file-label" for="validatedInputGroupCustomFile">Charger votre Document...</label>
                         </div>
                         @if (ViewBag.candidat != null || ViewBag.candidat != 0)
@@ -45,8 +45,8 @@
 
                     </div>
                     <hr />
-
                     <button class="btn btn-primary" type="submit">Ajouter Document</button>
+                    <a asp-controller="Candidat" asp-route-id="@ViewBag.candidat" asp-action="Detail" class="btn btn-dark" >Candidat</a>
                 </form>
             </div>
         </div>
@@ -55,3 +55,13 @@
     <div class="col-sm-1">
     </div>
 </div>
+@section createSectionJs{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#fileinput").on("change", function () {
+            var inputphoto = $(this).val().split("\\").pop();
+            $(this).next(".custom-file-label").html(inputphoto);
+        });
+    })
+    </script>
+}
