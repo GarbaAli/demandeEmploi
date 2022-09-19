@@ -51,14 +51,14 @@ namespace demandeEmploi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     fichier = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    candidatId = table.Column<int>(type: "int", nullable: true)
+                    candidatLinkcandidatId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Documents", x => x.DocumentId);
                     table.ForeignKey(
-                        name: "FK_Documents_Candidats_candidatId",
-                        column: x => x.candidatId,
+                        name: "FK_Documents_Candidats_candidatLinkcandidatId",
+                        column: x => x.candidatLinkcandidatId,
                         principalTable: "Candidats",
                         principalColumn: "candidatId",
                         onDelete: ReferentialAction.Restrict);
@@ -94,9 +94,9 @@ namespace demandeEmploi.Migrations
                 column: "competencescomptetenceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Documents_candidatId",
+                name: "IX_Documents_candidatLinkcandidatId",
                 table: "Documents",
-                column: "candidatId");
+                column: "candidatLinkcandidatId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

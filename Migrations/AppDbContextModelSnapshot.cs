@@ -101,7 +101,7 @@ namespace demandeEmploi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("candidatId")
+                    b.Property<int?>("candidatLinkcandidatId")
                         .HasColumnType("int");
 
                     b.Property<string>("fichier")
@@ -112,7 +112,7 @@ namespace demandeEmploi.Migrations
 
                     b.HasKey("DocumentId");
 
-                    b.HasIndex("candidatId");
+                    b.HasIndex("candidatLinkcandidatId");
 
                     b.ToTable("Documents");
                 });
@@ -134,9 +134,11 @@ namespace demandeEmploi.Migrations
 
             modelBuilder.Entity("demandeEmploi.Models.Document", b =>
                 {
-                    b.HasOne("demandeEmploi.Models.Candidat", null)
+                    b.HasOne("demandeEmploi.Models.Candidat", "candidatLink")
                         .WithMany("documents")
-                        .HasForeignKey("candidatId");
+                        .HasForeignKey("candidatLinkcandidatId");
+
+                    b.Navigation("candidatLink");
                 });
 
             modelBuilder.Entity("demandeEmploi.Models.Candidat", b =>

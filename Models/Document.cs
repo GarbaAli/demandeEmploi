@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,5 +13,6 @@ namespace demandeEmploi.Models
         public int DocumentId { get; set; }
         public string type { get; set; }
         public string fichier { get; set; }
+        public Candidat candidatLink { get; set; }
     }
 }
