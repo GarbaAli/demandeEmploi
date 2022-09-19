@@ -1,0 +1,28 @@
+﻿@model CandidatDeleteViewModel
+@{ 
+    ViewBag.Title = "Supprimer Candidat";
+}
+
+<div class="card">
+    <div class="card-header">
+        Supprimer  <strong class="card-title">@Model.Nom @Model.Prenom</strong>
+    </div>
+    <form method="post">
+        <div class="card-body">
+            <div class="alert alert-warning">
+               Vous etes sur le point de supprimer de facon definitive le candidat; etes vous sure  de vouloir continuer?
+            </div>
+
+            <input asp-for="candidatId" hidden />
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="fa fa-check-circle"></i> Confirmer la Suppression
+                </button>
+                <a asp-action="Index" asp-controller="Candidat" class="btn btn-dark btn-sm">
+                    <i class="fa fa-reply"></i> Annuler
+                </a>
+            </div>
+        </div>
+    </form>
+</div>

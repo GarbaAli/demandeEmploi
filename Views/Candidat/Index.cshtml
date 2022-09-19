@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Candidat>
+
+@{
+    ViewBag.Title = "Liste de candidats";
+    ViewBag.Header = "Toutes les candidatures";
+    int count = Model.Count();
+}
+
+
+@if (count == 0)
+{
+    <div class="alert alert-dark d-flex justify-content-between">
+        <strong>Vous n'avez aucun candidat dans votre base de donnee!</strong>
+        <a asp-controller="Candidat" asp-action="Create" class="btn-sm btn-dark"><i class="icofont icofont-user-alt-3"></i>Nouveau candidat</a>
+    </div>
+}
+else
+{
+    <!-- Basic table card start -->
+    <div class="card">
+        <div class="card-header">
+            <h5>Basic Table</h5>
+            <span>use class <code>table</code> inside table element</span>
+            <div class="card-header-right">
+                <a asp-controller="Candidat" asp-action="Create" class="btn-sm btn-dark"><i class="icofont icofont-user-alt-3"></i>Nouveau candidat</a>
+            </div>
+        </div>
+        <div class="card-block table-border-style">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nom & Prenom</th>
+                            <th>Profession</th>
+                            <th>Phone</th>
+                            <th>Service</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <th scope="row">@item.candidatId</th>
+                            <td>@item.Nom <strong>@item.Prenom</strong></td>
+                            <td>@item.profession</td>
+                            <td>
+                                <label class="label label-primary">@item.service</label>
+                            </td>
+                            @if (item.statut)
+                            {
+                                <td><label class="label label-success">Actif</label></td>
+                            }
+                            else
+                            {
+                                <td><label class="label label-danger">Inactif</label></td>
+                            }
+
+                        <td>
+                            @*<div class="dropdown-inverse dropdown open">
+            <button class="btn-sm btn-inverse dropdown-toggle waves-effect waves-light " type="button" id="dropdown-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions</button>
+            <div class="dropdown-menu" aria-labelledby="dropdown-7" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                <a class="dropdown-item waves-light waves-effect" asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Detail">Detail</a>
+                <a class="dropdown-item waves-light waves-effect"asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Update">Modifier</a>
+                <a class="dropdown-item waves-light waves-effect" asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Delete">Delete</a>
+            </div>
+        </div>*@
+                            <div class="btn-group " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions">
+                                <a asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Detail" class="btn btn-default btn-sm waves-effect waves-light"><i class="fa fa-eye"></i></a>
+                                <a asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Edit" class="btn btn-dark btn-sm waves-effect waves-light">Modifier</a>
+                                <a asp-controller="Candidat" asp-route-id="@item.candidatId" asp-action="Delete" class="btn btn-danger btn-sm waves-effect waves-light"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Basic table card end -->
+}
